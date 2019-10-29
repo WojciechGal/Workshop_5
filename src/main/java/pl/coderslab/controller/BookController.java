@@ -31,7 +31,7 @@ public class BookController {
         this.service = service;
     }
 
-    @RequestMapping("")
+    @RequestMapping(value = "", produces = "application/json")
     public List<Book> findAll(){
         return service.findAll();
     }
@@ -55,7 +55,7 @@ public class BookController {
             if (service.delete(service.findById(id))) {
                 return new JsonResponse(200, "Succesfully removed book: " + id);
             } else {
-                return new JsonResponse(500, "Cannot reomove book");
+                return new JsonResponse(500, "Cannot remove book");
             }
         }catch (ServiceException e) {
             return new JsonResponse(500, "Cannot reomove book");
@@ -64,7 +64,6 @@ public class BookController {
 
 
     //update
-
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Book update(@PathVariable long id, @RequestBody Book book) {
